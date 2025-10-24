@@ -1,138 +1,274 @@
-# CS2 Trade-Up Scanner
+# CS2 Intelligent Knife Market Scraper
 
-Scans Steam Community Market to find profitable 5 Covert → 1 Gold trade-up opportunities in Counter-Strike 2.
+**The most advanced CS2 knife market scraper** with rate limit detection, VPN rotation, duplicate elimination, and comprehensive checklist-based scraping.
 
-## New CS2 Update (2024)
-Valve now allows players to trade-up 5 Covert skins for 1 Gold (knife/glove) **in the same collection**. This scanner helps identify profitable opportunities by comparing:
-- Cost of 5x cheapest covert skin in a collection
-- vs Price of cheapest gold outcome (after 13% Steam fee)
+## 🚀 Key Features
 
-## Quick Start
+### 1. **Rate Limit Detection & Auto-Recovery**
+- Detects Steam rate limits automatically
+- Triggers VPN server rotation (NordVPN/ExpressVPN)
+- Exponential backoff with intelligent wait times
+- Auto-retries failed searches
+
+### 2. **Duplicate Detection**
+- Tracks every knife collected in memory
+- Filters out duplicates from overlapping searches
+- Example: "M9 Bayonet Doppler" won't re-collect "Bayonet Doppler"
+
+### 3. **Comprehensive Checklist System**
+- Maintains database of ALL possible knife combinations
+- Tracks which knives have been found (0/1)
+- Prioritizes unfound knives in search strategy
+- Shows completion percentage in real-time
+
+### 4. **Intelligent Search Strategy**
+- Searches based on what hasn't been found yet
+- Groups searches by knife+finish to minimize API calls
+- Adapts search delays based on success rate
+- Strategic VPN rotation to avoid detection
+
+## 📊 What You Get
+
+### Comprehensive Database
+Every CS2 knife combination:
+- **19 knife types** × **25+ finishes** × **5 wear levels** × **2 (StatTrak/Regular)**
+- Total: **~4,750 possible combinations**
+- Tracks: `knife_type`, `finish`, `wear`, `is_stattrak`, `found`, `quantity`, `price`, `last_updated`
+
+### Output Files
+
+**`comprehensive_knife_checklist.csv`** - Master checklist
+```csv
+knife_type,finish,wear,is_stattrak,found,quantity,price,last_updated
+Karambit,Doppler,FN,0,1,18,1244.78,2025-10-24T18:01:19
+Karambit,Doppler,FN,1,1,8,1365.42,2025-10-24T18:01:19
+Karambit,Doppler,MW,0,0,,,
+```
+
+## 🔧 Setup
 
 ### 1. Install Dependencies
+
 ```bash
-pip install -r requirements.txt
-```
-
-### 2. Choose Your Scanner
-
-#### Smart Scanner (Recommended)
-Handles rate limits gracefully with caching and exponential backoff:
-```bash
-python smart_scanner.py
-```
-
-#### Market Scraper
-Gets actual purchasable listings (skips "Sold!" items):
-```bash
-python market_scraper.py
-```
-
-#### Manual Analyzer
-When you have specific prices already:
-```bash
-python manual_analyzer.py
-```
-
-## Avoiding Rate Limits
-
-Steam aggressively rate-limits API requests. Best practices:
-
-### Option 1: Use VPN on Different Device
-Run the scanner on a different device with a VPN to bypass IP-based rate limits:
-```bash
-# On your VPN-connected device:
-git clone https://github.com/shlinkLFO/CS2-Scanner.git
 cd CS2-Scanner
 pip install -r requirements.txt
-python smart_scanner.py
+playwright install chromium
 ```
 
-### Option 2: Patience Mode
-The smart scanner waits 10+ seconds between requests and caches results. Just let it run - it will take time but works reliably.
+### 2. (Optional) Setup VPN
 
-### Option 3: Manual Entry
-Manually check Steam Market prices and use the manual analyzer:
+For large-scale scraping, install VPN CLI:
+
+**NordVPN:**
 ```bash
-# Edit manual_analyzer.py with your prices, then:
-python manual_analyzer.py
+# Download from: https://nordvpn.com/download/
+nordvpn login
+nordvpn connect
 ```
 
-## How It Works
-
-1. **Find Cheapest Covert**: Scans all covert skins in a collection
-2. **Find Cheapest Gold**: Checks knife/glove outcomes (samples common finishes)
-3. **Calculate Profit**:
-   - Cost: 5x covert price
-   - Revenue: Gold price × 87% (after 13% Steam fee)
-   - Profit: Revenue - Cost
-
-## Files
-
-- `smart_scanner.py` - Main scanner with rate limit handling
-- `market_scraper.py` - Advanced scraper for actual buy orders
-- `manual_analyzer.py` - Analyze with manual price input
-- `tradeup_scanner.py` - Full collection scanner (legacy)
-- `price_cache.json` - Cached prices (auto-generated)
-- `market_prices.json` - Market scraper cache
-- `smart_scan_results.csv` - Results output
-
-## Collections Analyzed
-
-Focus on accessible collections:
-- Huntsman Weapon Case
-- Falchion Case
-- Shadow Case
-- Spectrum Case
-- Horizon Case
-- Prisma Case
-- (More can be added)
-
-**Note**: Breakout collection (Butterfly Knife) is excluded as it's known to be unprofitable.
-
-## Understanding Results
-
-```
-Falchion Case ✓ PROFITABLE
-  Covert: AK-47 | Aquamarine Revenge (Well-Worn) @ $35.99
-  Gold: ★ Falchion Knife | Safari Mesh @ $250.00
-  Ratio: 6.95x | Profit: $37.55 (20.9%)
+**ExpressVPN:**
+```bash
+# Download from: https://www.expressvpn.com/support/vpn-setup/app-for-windows/
+expressvpn connect
 ```
 
-- **Ratio**: Gold price / Covert price (higher = better)
-- **Profit**: Net profit after buying 5 coverts and selling gold
-- **Margin**: Profit as percentage of investment
+### 3. Generate Comprehensive Checklist
 
-## Tips
+```bash
+python setup_intelligent_scraper.py
+```
 
-1. **Volume Matters**: Check actual market volume before executing
-2. **Wear Matters**: Field-Tested and Well-Worn coverts are often better ROI
-3. **Gold Variance**: Some gold finishes are much cheaper (Safari Mesh, Boreal Forest)
-4. **Market Volatility**: Prices change - always verify before trading up
-5. **Float Values**: Some patterns (Case Hardened, Fade) vary wildly by pattern
+This creates:
+- `comprehensive_knife_checklist.csv` - All 4,750 combinations
+- `comprehensive_knife_checklist.json` - Same in JSON format
 
-## Troubleshooting
+## ⚡ Usage
 
-**"Rate limited / 429 errors"**
-- Use VPN on different device
-- Increase delay in scanner (edit `BASE_DELAY`)
-- Use cached results
+### Run the Intelligent Scraper
 
-**"No lowest_price" warnings**
-- Item may be extremely rare/expensive
-- Try different wear conditions
-- Check item exists on market
+```bash
+python intelligent_knife_scraper.py
+```
 
-**Prices seem wrong**
-- Clear cache files and re-run
-- Verify item names match Steam Market exactly
-- Check currency is USD
+**Interactive prompts:**
+1. **Use VPN?** - Recommended for large scrapes (y/n)
+2. **VPN type?** - nordvpn or expressvpn
+3. **Headless mode?** - Run browser in background (y/n)
 
-## Disclaimer
+### What Happens
 
-- Market prices fluctuate constantly
-- This tool is for research/educational purposes
-- Always verify prices manually before trading
-- Past profitability doesn't guarantee future profits
-- Steam market has fees and delays
+1. **Loads checklist** - Sees which knives haven't been found
+2. **Plans searches** - Groups unfound knives by type+finish
+3. **Scrapes systematically** - Searches in batches of 10
+4. **Handles rate limits** - Auto-switches IP and retries
+5. **Eliminates duplicates** - Filters out already-collected knives
+6. **Updates checklist** - Marks found knives with quantity/price
+7. **Saves progress** - Checkpoints after each batch
+
+### Example Session
+
+```
+BATCH 1: 10 searches
+================================================================================
+
+[1/10] Karambit Doppler
+  Extracted 6 raw listings
+  Skipped 0 duplicates
+  Filtered 0 irrelevant results
+  ✓ Collected 6 new knives
+  + Karambit | Doppler (FN) - 18 @ $1244.78
+  + Karambit | Doppler (FN) [ST] - 8 @ $1365.42
+  + Karambit | Doppler (MW) - 5 @ $1296.18
+
+[2/10] M9 Bayonet Gamma Doppler
+  Extracted 9 raw listings
+  Skipped 3 duplicates (Bayonet Gamma Doppler already collected)
+  Filtered 2 irrelevant results (Bayonet Doppler)
+  ✓ Collected 4 new knives
+  + M9 Bayonet | Gamma Doppler (FN) - 4 @ $1424.71
+  + M9 Bayonet | Gamma Doppler (MW) - 2 @ $1816.74
+
+... rate limit detected after 15 searches ...
+
+⚠️  RATE LIMIT DETECTED
+================================================================================
+Rate limit hit #1
+Wait time: 60 seconds (1.0 minutes)
+Attempting to switch IP address...
+✓ NordVPN: Connected to new server (us9876)
+✓ IP switched successfully
+Reduced wait time to 30 seconds
+Waiting 30 seconds before retry...
+  30 seconds remaining...
+Wait complete, resuming scraping
+================================================================================
+
+Progress: 45.2% complete
+  Found: 2,148/4,750
+  Successful scrapes: 127
+  Failed scrapes: 3
+```
+
+## 📁 Output Files
+
+After scraping:
+
+1. **`comprehensive_knife_checklist.csv`** - Updated with all found knives
+2. **`intelligent_scrape_YYYYMMDD_HHMMSS.log`** - Detailed log file
+3. **Progress tracking** - Real-time completion percentage
+
+## 🎯 Advantages
+
+| Feature | Old Scraper | Intelligent Scraper |
+|---------|-------------|---------------------|
+| Rate Limit Handling | ❌ Crashes | ✅ Auto-detects & recovers |
+| VPN Rotation | ❌ Manual | ✅ Automatic |
+| Duplicate Detection | ❌ Collects duplicates | ✅ Filters duplicates |
+| Search Strategy | 🔄 Fixed list | ✅ Checklist-based |
+| Progress Tracking | ❌ None | ✅ Real-time percentage |
+| Completion Guarantee | ❌ Partial | ✅ Comprehensive |
+| Resume Support | ❌ Start over | ✅ Continues from checkpoint |
+
+## 🔍 How It Works
+
+### 1. Comprehensive Database Generation
+```python
+# Every knife type × finish × wear × StatTrak
+Karambit × Doppler × FN × Regular = 1 entry
+Karambit × Doppler × FN × StatTrak = 1 entry
+... (4,750 total combinations)
+```
+
+### 2. Intelligent Search Planning
+```python
+# Instead of searching randomly:
+queries = get_next_search_queries()  # Returns unfound knives only
+
+# Groups searches efficiently:
+"Karambit Doppler" → Finds all Karambit Dopplers in one search
+```
+
+### 3. Duplicate Elimination
+```python
+# Tracks collected knives in memory:
+collected_knives = {
+    ('Karambit', 'Doppler', 'FN', 0),
+    ('Karambit', 'Doppler', 'FN', 1),
+    ...
+}
+
+# Filters duplicates during parsing:
+if is_duplicate(knife_type, finish, wear, is_stattrak):
+    continue  # Skip
+```
+
+### 4. Rate Limit Recovery
+```python
+# Detects rate limit:
+if "Target page closed" or "Too Many Requests":
+    handle_rate_limit()
+    
+def handle_rate_limit():
+    1. Close browser
+    2. Switch VPN server (new IP)
+    3. Wait (exponential backoff: 60s → 120s → 240s)
+    4. Reinitialize browser
+    5. Retry same search
+```
+
+## 📈 Completion Tracking
+
+View progress at any time:
+```bash
+python -c "from comprehensive_knife_list import load_checklist, get_completion_stats; \
+           stats = get_completion_stats(load_checklist()); \
+           print(f'Completion: {stats[\"completion_percent\"]:.1f}%')"
+```
+
+## 🛠️ Troubleshooting
+
+### Rate limits hit repeatedly
+- Increase base wait time in `rate_limit_handler.py`
+- Use VPN with more servers
+- Run during off-peak hours
+
+### VPN not switching
+- Verify VPN CLI is installed: `nordvpn --version`
+- Login to VPN: `nordvpn login`
+- Check permissions (may need admin/sudo)
+
+### Browser crashes
+- Run in visible mode (headless=n) to debug
+- Check system resources (RAM/CPU)
+- Reduce batch size in scraper
+
+## 📋 Files Overview
+
+| File | Purpose |
+|------|---------|
+| `intelligent_knife_scraper.py` | Main scraper with all features |
+| `rate_limit_handler.py` | Rate limit detection & VPN rotation |
+| `comprehensive_knife_list.py` | Database generator & checklist manager |
+| `setup_intelligent_scraper.py` | One-time setup script |
+| `comprehensive_knife_checklist.csv` | Master checklist (generated) |
+
+## 🎉 Expected Results
+
+After complete run:
+- **4,750 knife combinations** checked
+- **~1,500-2,500 knives found** (many combinations don't exist on market)
+- **Zero duplicates** (intelligent filtering)
+- **Complete coverage** (checklist ensures nothing missed)
+- **Market snapshot** with quantities and prices
+
+## 🚀 Next Steps
+
+1. **Generate hidden gems report** from comprehensive data
+2. **Track price changes** over time by re-running
+3. **Analyze market trends** (most/least available, price ranges)
+4. **Investment opportunities** (rare knives, undervalued items)
+
+---
+
+**Built for comprehensive, intelligent, and respectful market data collection.**
 

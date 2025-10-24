@@ -1,0 +1,67 @@
+COMPLETE COVERT ANALYSIS - ALL COLLECTIONS
+================================================================================
+
+COLLECTIONS WITH COVERT PRICES FOUND:
+--------------------------------------------------
+1. Operation Hydra Case
+   Covert: M4A4 | In Living Color (Battle-Scarred) @ $34.50
+   Gold: NO GOLD ITEMS FOUND
+
+2. Prisma Case
+   Covert: M4A4 | Neo-Noir (Battle-Scarred) @ $34.62
+   Gold: NO GOLD ITEMS FOUND
+
+3. Glove Case
+   Covert: Glock-18 | Neo-Noir (Well-Worn) @ $35.35
+   Gold: NO GOLD ITEMS FOUND
+
+4. Huntsman Weapon Case
+   Covert: M4A4 | Desert-Strike (Well-Worn) @ $38.73
+   Gold: NO GOLD ITEMS FOUND
+
+5. CS20 Case
+   Covert: AWP | Neo-Noir (Field-Tested) @ $39.34
+   Gold: NO GOLD ITEMS FOUND
+
+6. CS:GO Weapon Case
+   Covert: Sawed-Off | The Kraken (Field-Tested) @ $46.40
+   Gold: NO GOLD ITEMS FOUND
+
+7. eSports 2013
+   Covert: AUG | Chameleon (Field-Tested) @ $49.10
+   Gold: NO GOLD ITEMS FOUND
+
+8. Shadow Case
+   Covert: P2000 | Fire Elemental (Field-Tested) @ $49.97
+   Gold: NO GOLD ITEMS FOUND
+
+9. Operation Wildfire
+   Covert: StatTrak™ PP-Bizon | Judgement of Anubis (Well-Worn) @ $51.64
+   Gold: NO GOLD ITEMS FOUND
+
+10. Spectrum Case
+   Covert: M4A1-S | Mecha Industries (Battle-Scarred) @ $57.38
+   Gold: NO GOLD ITEMS FOUND
+
+11. Chroma Case
+   Covert: StatTrak™ Galil AR | Chatterbox (Battle-Scarred) @ $59.18
+   Gold: NO GOLD ITEMS FOUND
+
+12. Chroma 2 Case
+   Covert: M4A1-S | Hyper Beast (Battle-Scarred) @ $59.39
+   Gold: NO GOLD ITEMS FOUND
+
+13. Operation Riptide
+   Covert: StatTrak™ M4A4 | Buzz Kill (Field-Tested) @ $65.36
+   Gold: NO GOLD ITEMS FOUND
+
+================================================================================
+SUMMARY
+================================================================================
+Total Collections Analyzed: 32
+Collections with Covert Prices: 13
+Collections with Gold Items: 0
+Profitable Collections: 0
+
+Cheapest Covert: M4A4 | In Living Color (Battle-Scarred) @ $34.50
+Most Expensive Covert: StatTrak™ M4A4 | Buzz Kill (Field-Tested) @ $65.36
