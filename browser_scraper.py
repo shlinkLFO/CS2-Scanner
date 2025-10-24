@@ -260,35 +260,35 @@ COLLECTIONS = {
     },
     
     "Falchion Case": {
-        "collection_id": "tag_set_community_4",
+        "collection_id": "tag_set_community_8",  # Corrected based on test results
         "gold_type": "Knife",
         "models": ["Falchion Knife"],
         "finish_set": "Original"
     },
     
     "Shadow Case": {
-        "collection_id": "tag_set_community_5",
+        "collection_id": "tag_set_community_5",  # Need to find correct ID
         "gold_type": "Knife",
         "models": ["Shadow Daggers"],
         "finish_set": "Original"
     },
     
     "Chroma Case": {
-        "collection_id": "tag_set_community_6",
+        "collection_id": "tag_set_community_6",  # Need to find correct ID
         "gold_type": "Knives",
         "models": ["Bayonet", "Flip Knife", "Gut Knife", "Karambit", "M9 Bayonet"],
         "finish_set": "Chroma"
     },
     
     "Chroma 2 Case": {
-        "collection_id": "tag_set_community_7",
+        "collection_id": "tag_set_community_7",  # Need to find correct ID
         "gold_type": "Knives",
         "models": ["Bayonet", "Flip Knife", "Gut Knife", "Karambit", "M9 Bayonet"],
         "finish_set": "Chroma"
     },
     
     "Chroma 3 Case": {
-        "collection_id": "tag_set_community_8",
+        "collection_id": "tag_set_community_8",  # This one has Falchion knives, not Chroma 3
         "gold_type": "Knives",
         "models": ["Bayonet", "Flip Knife", "Gut Knife", "Karambit", "M9 Bayonet"],
         "finish_set": "Chroma"
@@ -309,7 +309,7 @@ COLLECTIONS = {
     },
     
     "Operation Breakout": {
-        "collection_id": "tag_set_community_11",
+        "collection_id": "tag_set_community_4",  # Found this contains Butterfly Knives
         "gold_type": "Knife",
         "models": ["Butterfly Knife"],
         "finish_set": "Original"
