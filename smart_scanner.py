@@ -168,19 +168,31 @@ class RateLimitedScanner:
             sample_finishes = finish_set[:3]
         
         # Sample first knife model with priority finishes
+        # Include wear conditions for knives (they're required!)
         sample_model = gold_models[0]
+        # Focus on cheapest wear conditions only
+        wear_conditions = ['(Field-Tested)', '(Battle-Scarred)']
         
         cheapest_gold_price = float('inf')
         cheapest_gold_name = None
         
-        logger.info(f"Sampling gold outcomes: {sample_model} with {len(sample_finishes)} finishes...")
+        # Also try vanilla knife (no finish)
+        vanilla_name = f"★ {sample_model}"
+        logger.info(f"Trying vanilla: {vanilla_name}")
+        vanilla_price = self.get_price_with_retry(vanilla_name)
+        if vanilla_price:
+            cheapest_gold_price = vanilla_price
+            cheapest_gold_name = vanilla_name
+        
+        logger.info(f"Sampling gold outcomes: {sample_model} with {len(sample_finishes)} finishes × {len(wear_conditions)} wears...")
         
         for finish in sample_finishes:
-            gold_name = f"★ {sample_model} | {finish}"
-            price = self.get_price_with_retry(gold_name)
-            if price and price < cheapest_gold_price:
-                cheapest_gold_price = price
-                cheapest_gold_name = gold_name
+            for wear in wear_conditions:
+                gold_name = f"★ {sample_model} | {finish} {wear}"
+                price = self.get_price_with_retry(gold_name)
+                if price and price < cheapest_gold_price:
+                    cheapest_gold_price = price
+                    cheapest_gold_name = gold_name
         
         if not cheapest_gold_name:
             logger.warning("Could not find any gold prices")
